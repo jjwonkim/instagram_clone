@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "204490582065",
+    "project_id": "instagram-clone-3d1ea",
+    "storage_bucket": "instagram-clone-3d1ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204490582065:android:a516529f9b18d2645b0d10",
+        "android_client_info": {
+          "package_name": "com.example.instagram_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204490582065-3vk5irhqligop24dtk6qqd7lgcl00spj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.instagram_clone",
+            "certificate_hash": "a39269fcfd9a733d0e700c39b3d279b3ed48954e"
+          }
+        },
+        {
+          "client_id": "204490582065-9mb6d2lopsd7h1ijglm1337n60jq3222.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb1CKolHNsVBhfrI4YdBmSYD0P55O-f6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204490582065-9mb6d2lopsd7h1ijglm1337n60jq3222.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
