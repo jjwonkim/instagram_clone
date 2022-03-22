@@ -2,10 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CreatePage extends StatefulWidget {
-  // final User user;
-  const CreatePage({Key? key}) : super(key: key);
+  final User user;
+
+  const CreatePage(this.user, {Key? key}) : super(key: key);
 
   @override
   State<CreatePage> createState() => _CreatePageState();
@@ -37,7 +40,37 @@ class _CreatePageState extends State<CreatePage> {
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.send)),
+        IconButton(
+          icon: Icon(Icons.send),
+          onPressed: () {
+            // final firebaseStorageRef =
+            //     FirebaseStorage.instance.ref().child('post').child('${DateTime.now().microsecondsSinceEpoch}.png');
+
+            final firebaseStorageRef = FirebaseStorage.instance
+                .ref()
+                .child('post')
+                .child('${DateTime.now().millisecondsSinceEpoch}.png');
+            print('${DateTime.now().millisecondsSinceEpoch}.png');
+
+            final task = firebaseStorageRef.putFile(_image!, SettableMetadata(contentType: 'image/png'));
+            task.then((value) {
+              var downloadUrl = value.ref.getDownloadURL();
+              downloadUrl.then((uri) {
+                var doc = FirebaseFirestore.instance.collection('post').doc();
+                doc.set({
+                  'id': doc.id,
+                  'photoUrl': uri.toString(),
+                  'email': widget.user.email,
+                  'display': widget.user.displayName,
+                  'userPhotoUrl': widget.user.photoURL,
+                  'contents': textEditingController.text
+                }).then((onValue) {
+                  Navigator.pop(context);
+                });
+              });
+            });
+          },
+        ),
       ],
     );
   }

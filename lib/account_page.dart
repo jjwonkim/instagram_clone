@@ -1,10 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AccountPage extends StatefulWidget {
-  // final User user;
-  const AccountPage({Key? key}) : super(key: key);
+  final User user;
+
+  const AccountPage(this.user, {Key? key}) : super(key: key);
 
   @override
   State<AccountPage> createState() => _AccountPageState();
@@ -12,6 +13,7 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +24,14 @@ class _AccountPageState extends State<AccountPage> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      actions: [IconButton(
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-            _googleSignIn.signOut();
-          },
-          icon: Icon(Icons.exit_to_app))],
+      actions: [
+        IconButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              _googleSignIn.signOut();
+            },
+            icon: Icon(Icons.exit_to_app))
+      ],
     );
   }
 
@@ -47,8 +51,7 @@ class _AccountPageState extends State<AccountPage> {
                     width: 80,
                     height: 80,
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://w.namu.la/s/769f7881c5e77c95d7dafa7cf152711b8211a9f926d9dc4e71e0381bc79fe764883e1e6c2c178e06d6cb4b4974ff9bb94bbce5f8526ef1229f586f6a4bfc4ce057032951c72f690bee58f62631a70b2d7ee591a6bc12854a97e2e3ba845de0f3'),
+                      backgroundImage: NetworkImage(widget.user.photoURL!),
                     ),
                   ),
                   Container(
@@ -82,7 +85,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               Padding(padding: EdgeInsets.all(8)),
               Text(
-                '이름',
+                widget.user.displayName!,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ],
